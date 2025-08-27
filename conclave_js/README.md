@@ -1,7 +1,6 @@
 # 🕊️ Conclave Simulator
 
-![Node.js](https://img.shields.io/badge/Node.js-14+-green)
-![License](https://img.shields.io/badge/License-MIT-blue)
+![Node.js](https://img.shields.io/badge/Node.js-22+-green)
 
 ## Descrição
 
