@@ -3,20 +3,21 @@ const entrada = require("prompt-sync")({ sigint: false });
 /*
  - Este é projeto conclave
  - Consiste em criar um programa que simule o conclave, o processo de votação para eleger um novo papa
- - primeiro o programa deve cadastrar 5 cardeais e atribuir automaticamente um id para cada um dos cardeais
+ - primeiro o programa deve cadastrar 5 cardeais, ou a quantidade definida pelo usuário, e atribuir automaticamente um id para cada um dos cardeais
  - Depois deve iniciar automáticamente a votação secreta
  - Deve mostrar os cardeais cadastrados e os ids deles que deverão ser escolhidos para votar
- - Para eleger um papa, o cardeal precisa obter 2/3 dos votos(no mínimo 4 votos em 5)
+ - Para eleger um papa, o cardeal precisa obter 2/3 dos votos
  - então encerrar a votação e mostrar o resultado
+ - se a votação não eleger um papa, volta ao inicio
 */
 
-// Pegar e guardar os nomes, ids e votos dos cardeais
-console.log(
-  "Please, type the names and numbers of the cardeals runing for pope"
-);
+// =================================
+// declaração de variáveis e funções
+// =================================
+
 let cardeais = []; // salva os nomes e números dos cardeais em um vetor (uma lista de objetos)
 
-// for para pegar os cardeais e guardar no array
+// função para pegar a entrada do usuário e guardar os cardeais cadastrados
 function nominateCardinals() {
   // pergunta quantos cardeais participarão do conclave
   let qtd = Number(
@@ -37,15 +38,7 @@ function nominateCardinals() {
   }
 }
 
-// console.log(cardeais);
-
-// inicio da votação
-console.log("====================================");
-console.log("Conclave: the rising of a new pope");
-console.log("====================================");
-
-console.log("This is an anonymous election");
-
+// função para votar nos cardeais cadastrados
 function vote() {
   for (let i = 0; i < cardeais.length; i++) {
     console.log("List of cardinales up to election: ");
@@ -72,9 +65,71 @@ function countVotes() {
 }
 
 // função para mostrar o novo papa
-function showNewPope() {}
+function showNewPope() {
+  // somar os votos
+  let totalVotos = 0;
+  for (let i = 0; i < cardeais.length; i++) {
+    totalVotos += cardeais[i].votos;
+  }
 
-// chamando as funções
+  // Calcular 2/3
+  // se a divisão não for exata, arredondar pra cima.
+  let necessario = (2 * totalVotos) / 3;
+  if (necessario % 1 !== 0) {
+    // se não for inteiro
+    necessario = parseInt(necessario) + 1; // arredonda pra cima
+  }
+
+  // verifica quem atingiu o necessário
+  let eleito = null;
+  for (let i = 0; i < cardeais.length; i++) {
+    if (cardeais[i].votos >= necessario) {
+      eleito = cardeais[i];
+      break; // se verdadeiro, pode parar
+    }
+  }
+
+  // mostra resultado da eleição
+  if (eleito !== null) {
+    console.log(
+      "\nHabemus Papam! 🎉 The new Pope is " +
+        eleito.nome +
+        ", with " +
+        eleito.votos +
+        " votes."
+    );
+  } else {
+    console.log("\nNo Pope was elected. A new ballot is required.");
+  }
+
+  return eleito;
+}
+
+// ========
+// conclave
+// ========
+
+console.log("====================================");
+console.log("Conclave: the rising of a new pope");
+console.log("====================================");
+console.log("This is an anonymous election\n");
+
 nominateCardinals();
-vote();
-countVotes();
+
+let papaEleito = null;
+
+while (papaEleito === null) {
+  // antes de cada rodada, zera os votos
+  for (let i = 0; i < cardeais.length; i++) {
+    cardeais[i].votos = 0;
+  }
+
+  vote();
+  countVotes();
+
+  papaEleito = showNewPope();
+
+  if (papaEleito === null) {
+    console.log("\nNo Pope was elected. 🔥 A new ballot will begin...\n");
+  }
+}
