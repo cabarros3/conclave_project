@@ -51,7 +51,7 @@ function vote() {
   console.log("====================================\n");
 
   for (let i = 0; i < cardeais.length; i++) {
-    console.log("List of cardinales up to election: ");
+    console.log("List of cardinals up to election: ");
     cardeais.forEach((c) => console.log(`${c.id} - ${c.nome}`));
 
     let voto = Number(entrada("Please, insert your vote: "));
@@ -70,9 +70,7 @@ function vote() {
 // função para contar os votos
 function countVotes() {
   console.log("\n📊 Result of the voting:");
-  cardeais.forEach((c) =>
-    console.log(` Cardinale ${c.nome}: ${c.votos} votos`)
-  );
+  cardeais.forEach((c) => console.log(` Cardinal ${c.nome}: ${c.votos} votos`));
 }
 
 // função para mostrar o novo papa
