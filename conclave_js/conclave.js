@@ -135,17 +135,15 @@ nominateCardinals();
 let papaEleito = null;
 
 while (papaEleito === null) {
-  // antes de cada rodada, zera os votos
-  for (let i = 0; i < cardeais.length; i++) {
-    cardeais[i].votos = 0;
-  }
-
-  vote();
-  countVotes();
-
-  papaEleito = showNewPope();
+  vote(); // votação aberta
+  countVotes(); // mostra total de votos
+  papaEleito = showNewPope(); // verifica eleito
 
   if (papaEleito === null) {
+    // 👉 só aqui você reseta votos, porque vai iniciar nova eleição
+    for (let i = 0; i < cardeais.length; i++) {
+      cardeais[i].votos = 0;
+    }
     console.log("\nNo Pope was elected. 🔥 A new ballot will begin...\n");
   }
 }
