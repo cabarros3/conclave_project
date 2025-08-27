@@ -19,6 +19,10 @@ let cardeais = []; // salva os nomes e números dos cardeais em um vetor (uma li
 
 // função para pegar a entrada do usuário e guardar os cardeais cadastrados
 function nominateCardinals() {
+  console.log("====================================");
+  console.log("Cardinals Registration");
+  console.log("====================================\n");
+
   // pergunta quantos cardeais participarão do conclave
   let qtd = Number(
     entrada("How many cardinals will participate in the conclave? ")
@@ -33,13 +37,19 @@ function nominateCardinals() {
     };
     cardeais.push(cardeal);
     console.log(
-      `The cardeal ${cardeal.nome} (ID: ${cardeal.id}) was insert into the system`
+      `✅ The cardeal ${cardeal.nome} (ID: ${cardeal.id}) was insert into the system`
     );
   }
+
+  console.log("\n✅ All cardinals have been registered!\n");
 }
 
 // função para votar nos cardeais cadastrados
 function vote() {
+  console.log("====================================");
+  console.log("Voting Round");
+  console.log("====================================\n");
+
   for (let i = 0; i < cardeais.length; i++) {
     console.log("List of cardinales up to election: ");
     cardeais.forEach((c) => console.log(`${c.id} - ${c.nome}`));
@@ -49,8 +59,9 @@ function vote() {
     // Verifica se o voto é válido
     if (voto >= 1 && voto <= cardeais.length) {
       cardeais[voto - 1].votos++; // usa o índice correspondente, id começa em 1, mas indice começa em 0. então subtrai para pegar o índice.
+      console.log(`🗳️  Vote recorded for ${cardeais[voto - 1].nome}\n`);
     } else {
-      console.log("Invalid vote");
+      console.log("❌ Invalid vote. Please try again.\n");
       i--; // repete a votação deste cardeal
     }
   }
@@ -58,7 +69,7 @@ function vote() {
 
 // função para contar os votos
 function countVotes() {
-  console.log("\nResultado da votação:");
+  console.log("\n📊 Result of the voting:");
   cardeais.forEach((c) =>
     console.log(` Cardinale ${c.nome}: ${c.votos} votos`)
   );
