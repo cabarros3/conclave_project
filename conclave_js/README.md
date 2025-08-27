@@ -16,8 +16,6 @@ Se nenhum cardeal atingir **2/3 dos votos**, a votação se repete automaticamen
 - [Funcionalidades](#funcionalidades)
 - [Tecnologias](#tecnologias)
 - [Como Usar](#como-usar)
-- [Exemplo de Execução](#exemplo-de-execução)
-- [Licença](#licença)
 
 ---
 
