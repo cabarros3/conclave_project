@@ -50,11 +50,19 @@ function vote() {
   console.log("Voting Round");
   console.log("====================================\n");
 
-  for (let i = 0; i < cardeais.length; i++) {
-    console.log("List of cardinals up to election: ");
-    cardeais.forEach((c) => console.log(`${c.id} - ${c.nome}`));
+  console.log("List of cardinals up to election: ");
+  cardeais.forEach((c) => console.log(`${c.id} - ${c.nome}`));
+  console.log("0 - Finish voting");
 
-    let voto = Number(entrada("Please, insert your vote: "));
+  while (true) {
+    let voto = entrada("Please, insert your vote (or 0 to finish): ");
+
+    if (voto === "0") {
+      console.log("\n✅ Voting finished!\n");
+      break; // encerra votação
+    }
+
+    voto = Number(voto);
 
     // Verifica se o voto é válido
     if (voto >= 1 && voto <= cardeais.length) {
@@ -62,7 +70,6 @@ function vote() {
       console.log(`🗳️  Vote recorded for ${cardeais[voto - 1].nome}\n`);
     } else {
       console.log("❌ Invalid vote. Please try again.\n");
-      i--; // repete a votação deste cardeal
     }
   }
 }
