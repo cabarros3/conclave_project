@@ -18,7 +18,12 @@ let cardeais = []; // salva os nomes e números dos cardeais em um vetor (uma li
 
 // for para pegar os cardeais e guardar no array
 function nominateCardinals() {
-  for (let i = 0; i < 5; i++) {
+  // pergunta quantos cardeais participarão do conclave
+  let qtd = Number(
+    entrada("How many cardinals will participate in the conclave? ")
+  );
+
+  for (let i = 0; i < qtd; i++) {
     let nome = entrada(`Type the name of the cardeal ${i + 1}: `);
     let cardeal = {
       id: i + 1,
